@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody,
+import { Card, CardImg, CardText, CardBody,
     CardTitle } from 'reactstrap';
 
-class Dishdetail extends Component {
+class DishDetail extends Component {
     constructor (props) {
         super(props);
         
@@ -13,17 +13,11 @@ class Dishdetail extends Component {
 
     renderComments(dish) {
         if (dish != null) {
-            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-            const commentslist = dish.comments.map((comment) => {
-                var dateFromComment = new Date(comment.date)
-                var month = dateFromComment.getMonth()
-                var day = dateFromComment.getDay()
-                var year = dateFromComment.getFullYear()
-                
+            const commentslist = dish.comments.map((comment) => {     
                 return (
                     <li key={comment.id}>
                         <p>{comment.comment}</p>
-                        <p>-- {comment.author}, {months[month]} {day}, {year}</p>
+                        <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}}</p>
                     </li>
                 );
             });
@@ -79,4 +73,4 @@ class Dishdetail extends Component {
     }
 }
 
-export default Dishdetail;
+export default DishDetail;
